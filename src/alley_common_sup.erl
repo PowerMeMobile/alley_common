@@ -3,7 +3,7 @@
 -behaviour(supervisor).
 
 -export([
-	start_link/0
+    start_link/0
 ]).
 
 %% Supervisor callbacks
@@ -20,9 +20,7 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
-    {ok, {
-		{one_for_one, 5, 10}, [
-			{ac_time_server,
-				{ac_time_server, start_link, []}, permanent, 1000, worker, [ac_time_server]}
-		]}
-	}.
+    {ok, {{one_for_one, 5, 10}, [
+        {ac_time_server,
+            {ac_time_server, start_link, []}, permanent, 1000, worker, [ac_time_server]}
+    ]}}.

@@ -1,11 +1,11 @@
 {application, alley_common, [
-	{description, "Common library for Open and Power Alley"},
-	{vsn, "1"},
-	{registered, []},
-	{applications, [
-		kernel,
-		stdlib
-	]},
-	{mod, {alley_common_app, []}},
-	{env, []}
+    {description, "Common library for Open and Power Alley"},
+    {vsn, git},
+    {registered, []},
+    {applications, [
+        kernel,
+        stdlib
+    ]},
+    {mod, {alley_common_app, []}},
+    {env, []}
 ]}.
