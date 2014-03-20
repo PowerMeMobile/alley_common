@@ -1,5 +1,5 @@
 {application, alley_common, [
-    {description, "Common library for Open and Power Alley"},
+    {description, "Common library from Power Alley Gateway Suite"},
     {vsn, git},
     {registered, []},
     {applications, [
