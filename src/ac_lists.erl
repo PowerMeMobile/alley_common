@@ -11,6 +11,10 @@
     make_pair/2
 ]).
 
+-deprecated([
+    {findwith, 2, eventually}
+]).
+
 -ifdef(TEST).
    -include_lib("eunit/include/eunit.hrl").
 -endif.
@@ -82,7 +86,8 @@ make_pair(KeyN, Tuple) ->
 -ifdef(TEST).
 
 remote_test() ->
-    ?assertEqual("acdef", remove(2, "abcdef")).
+    ?assertEqual("acdef", remove(2, "abcdef")),
+    ?assertEqual("", remove(10, "")).
 
 findwith_test() ->
     ok.
