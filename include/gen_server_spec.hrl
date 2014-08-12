@@ -3,7 +3,7 @@
 
 -type gen_srv_start_args() :: term().
 -type gen_srv_stop_reason() :: term().
--type gen_srv_timeout() :: integer() | infinity.
+-type gen_srv_timeout() :: non_neg_integer() | infinity.
 -type gen_srv_state() :: term().
 -type gen_srv_reply() :: term().
 -type gen_srv_request() :: term().
@@ -50,7 +50,7 @@
 
 -spec handle_info(gen_srv_request(), gen_srv_state()) -> gen_srv_handle_info_result().
 
--spec terminate(gen_srv_stop_reason(), gen_srv_state()) -> ignored.
+-spec terminate(gen_srv_stop_reason(), gen_srv_state()) -> term().
 
 -spec code_change(gen_srv_vsn(), gen_srv_state(), gen_srv_extra()) -> {ok, gen_srv_state()}.
 
