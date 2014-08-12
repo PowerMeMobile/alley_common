@@ -44,14 +44,14 @@
 -type gen_fsm_request() :: term().
 -type gen_fsm_handle_info_result() ::
         {next_state, gen_fsm_state_name(), gen_fsm_state_data()}
-    |   {next_state, gen_fsm_state_name(), gen_fsm_state_data(), gen_fsm_stop_reason()}
+    |   {next_state, gen_fsm_state_name(), gen_fsm_state_data(), gen_fsm_timeout()}
     |   {next_state, gen_fsm_state_name(), gen_fsm_state_data(), hibernate}
     |   {stop, gen_fsm_stop_reason(), gen_fsm_state_data()}.
 
 
 -spec handle_info(gen_fsm_request(), gen_fsm_state_name(), gen_fsm_state_data()) -> gen_fsm_handle_info_result().
 
--spec terminate(gen_fsm_stop_reason(), gen_fsm_state_name(), gen_fsm_state_data()) -> ignored.
+-spec terminate(gen_fsm_stop_reason(), gen_fsm_state_name(), gen_fsm_state_data()) -> term().
 
 -type gen_fsm_extra() :: term().
 -type gen_fsm_vsn() :: term() | {down, term()}.
