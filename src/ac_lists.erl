@@ -8,13 +8,16 @@
     permutations/1,
     make_ranges/1,
     make_frequencies/1,
-    make_pair/2
+    make_pair/2,
+    unzip4/1,
+    zip4/4
 ]).
 
 -deprecated([
     {findwith, 2, eventually}
 ]).
 
+%-define(TEST, 1).
 -ifdef(TEST).
    -include_lib("eunit/include/eunit.hrl").
 -endif.
@@ -79,6 +82,24 @@ make_pair(KeyN, Tuple) ->
             end,
     {Key, Value}.
 
+-spec unzip4([{A,B,C,D}]) -> {[A],[B],[C],[D]}.
+unzip4(Ts) ->
+    lists:foldr(
+        fun({A,B,C,D}, {AccA,AccB,AccC,AccD}) ->
+            {[A|AccA], [B|AccB], [C|AccC], [D|AccD]}
+        end,
+        {[],[],[],[]},
+        Ts).
+
+-spec zip4([A],[B],[C],[D]) -> [{A,B,C,D}].
+zip4(A, B, C, D) ->
+    zip4(A, B, C, D, []).
+
+zip4([], [], [], [], Acc) ->
+    lists:reverse(Acc);
+zip4([A|As], [B|Bs], [C|Cs], [D|Ds], Acc) ->
+    zip4(As, Bs, Cs, Ds, [{A,B,C,D} | Acc]).
+
 %% ===================================================================
 %% Tests begin
 %% ===================================================================
@@ -110,6 +131,14 @@ make_frequencies_test() ->
 make_pair_test() ->
     ?assertEqual({b,{a,c}}, make_pair(2, {a,b,c})),
     ?assertEqual({a,b}, make_pair(1, {a,b})).
+
+unzip4_test() ->
+    ?assertEqual({[],[],[],[]}, unzip4([])),
+    ?assertEqual({[1,2],[1,2],[1,2],[1,2]}, unzip4([{1,1,1,1},{2,2,2,2}])).
+
+zip4_test() ->
+    ?assertEqual([], zip4([], [], [], [])),
+    ?assertEqual([{1,1,1,1},{2,2,2,2}], zip4([1,2],[1,2],[1,2],[1,2])).
 
 -endif.
 
