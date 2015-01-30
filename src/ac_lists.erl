@@ -13,10 +13,6 @@
     zip4/4
 ]).
 
--deprecated([
-    {findwith, 2, eventually}
-]).
-
 %-define(TEST, 1).
 -ifdef(TEST).
    -include_lib("eunit/include/eunit.hrl").
