@@ -9,6 +9,7 @@
     timestamp_to_datetime/1,
     timestamp_to_unixepoch/1,
     timestamp_to_utc_string/1,
+    timestamp_to_iso8601/1,
 
     datetime_to_timestamp/1,
     datetime_to_unixepoch/1,
@@ -72,6 +73,10 @@ timestamp_to_unixepoch({M, S, _}) ->
 -spec timestamp_to_utc_string(timestamp()) -> binary().
 timestamp_to_utc_string(Timestamp) ->
     datetime_to_utc_string(timestamp_to_datetime(Timestamp)).
+
+-spec timestamp_to_iso8601(timestamp()) -> binary().
+timestamp_to_iso8601(Timestamp) ->
+    datetime_to_iso8601(timestamp_to_datetime(Timestamp)).
 
 -spec datetime_to_timestamp(datetime()) -> timestamp().
 datetime_to_timestamp(Datetime) ->
@@ -188,6 +193,11 @@ timestamp_to_utc_string_test() ->
     TS = {1368,23819,573663},
     UC = <<"130508143659">>,
     ?assertEqual(UC, timestamp_to_utc_string(TS)).
+
+timestamp_to_iso8601_test() ->
+    TS = {1368,23819,573663},
+    ISO = <<"2013-05-08T14:36:59">>,
+    ?assertEqual(ISO, timestamp_to_iso8601(TS)).
 
 datetime_to_timestamp_test_() ->
     TS0 = {0,0,0},
