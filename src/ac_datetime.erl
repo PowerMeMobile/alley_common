@@ -21,11 +21,14 @@
     unixepoch_to_iso8601/1,
 
     utc_string_to_datetime/1,
+    utc_string_to_unixepoch/1,
     utc_string_to_timestamp/1,
+    utc_string_to_iso8601/1,
 
     iso8601_to_datetime/1
 ]).
 
+%-define(TEST, 1).
 -ifdef(TEST).
    -include_lib("eunit/include/eunit.hrl").
 -endif.
@@ -129,9 +132,17 @@ utc_string_to_datetime(List) when is_list(List) ->
     end,
     {{Year,Mon,D},{H,Min,S}}.
 
+-spec utc_string_to_unixepoch(binary() | string()) -> unixepoch().
+utc_string_to_unixepoch(UTCString) ->
+    datetime_to_unixepoch(utc_string_to_datetime(UTCString)).
+
 -spec utc_string_to_timestamp(binary() | string()) -> timestamp().
 utc_string_to_timestamp(UTCString) ->
     datetime_to_timestamp(utc_string_to_datetime(UTCString)).
+
+-spec utc_string_to_iso8601(binary() | string()) -> binary().
+utc_string_to_iso8601(UTCString) ->
+    datetime_to_iso8601(utc_string_to_datetime(UTCString)).
 
 -spec iso8601_to_datetime(binary()) -> datetime().
 iso8601_to_datetime(Bin) ->
@@ -282,10 +293,20 @@ utc_string_to_datetime_test_() ->
         ?_assertEqual(DT00, utc_string_to_datetime(binary_to_list(UC00)))
     ].
 
+utc_string_to_unixepoch_test() ->
+    UC = "130508143659",
+    UE = 1368023819,
+    ?assertEqual(UE, utc_string_to_unixepoch(UC)).
+
 utc_string_to_timestamp_test() ->
     TS = {1357,95845,0},
     UC = <<"130102030405">>,
     ?assertEqual(TS, utc_string_to_timestamp(UC)).
+
+utc_string_to_iso8601_test() ->
+    UC = <<"380102030405">>,
+    ISO = <<"1938-01-02T03:04:05">>,
+    ?assertEqual(ISO, utc_string_to_iso8601(UC)).
 
 iso8601_to_datetime_test_() ->
     ISO1 = <<"2012-12-11T13:20">>,
