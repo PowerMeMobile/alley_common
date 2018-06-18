@@ -13,7 +13,7 @@
 %% API
 %% ===================================================================
 
--spec prepend(any(), any(), dict()) -> dict().
+-spec prepend(any(), any(), dict:dict()) -> dict:dict().
 prepend(Key, Value, Dict) ->
     dict:update(Key, fun(Acc) -> [Value | Acc] end, [Value], Dict).
 
