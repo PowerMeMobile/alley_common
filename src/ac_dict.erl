@@ -9,11 +9,15 @@
    -include_lib("eunit/include/eunit.hrl").
 -endif.
 
+-ifdef(namespaced_types).
+-type dict() :: dict:dict().
+-endif.
+
 %% ===================================================================
 %% API
 %% ===================================================================
 
--spec prepend(any(), any(), dict:dict()) -> dict:dict().
+-spec prepend(any(), any(), dict()) -> dict().
 prepend(Key, Value, Dict) ->
     dict:update(Key, fun(Acc) -> [Value | Acc] end, [Value], Dict).
 
